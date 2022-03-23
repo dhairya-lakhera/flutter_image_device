@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_images/examples/cropping_image_camera.dart';
 import 'package:flutter_images/examples/image_camera.dart';
 import 'package:flutter_images/examples/image_gallery.dart';
 import 'package:flutter_images/examples/multiple_images.dart';
@@ -71,6 +72,16 @@ class _PageIndexState extends State<PageIndex> {
                 );
               },
               child: Text('Multiple images using gallery'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CroppingImageCamera()),
+                );
+              },
+              child: Text('Cropping camera image'),
             ),
           ],
         ),
