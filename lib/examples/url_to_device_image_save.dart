@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
+import 'package:http/http.dart' as http;
 import 'dart:io';
 
-class SingleImageGallery extends StatefulWidget {
-  const SingleImageGallery({Key? key}) : super(key: key);
+class UrlToDeviceImageSave extends StatefulWidget {
+  const UrlToDeviceImageSave({Key? key}) : super(key: key);
 
   @override
-  State<SingleImageGallery> createState() => _SingleImageGalleryState();
+  State<UrlToDeviceImageSave> createState() => _UrlToDeviceImageSaveState();
 }
 
-class _SingleImageGalleryState extends State<SingleImageGallery> {
+class _UrlToDeviceImageSaveState extends State<UrlToDeviceImageSave> {
   File? _storedImage;
 
-  Future<void> _takePicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final imageFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (imageFile == null) return;
-
+  _saveImageFromUrl() async {
+    var response = await http.get(Uri.parse(
+        'https://tse3.mm.bing.net/th?id=OIP.h4BoQqPX9oXkxX5DQ0ba8wHaE8&pid=Api'));
+    Directory documentDirectory = await getApplicationDocumentsDirectory();
+    File file = new File('${documentDirectory.path}/imagetest.png');
+    file.writeAsBytesSync(response.bodyBytes);
     setState(() {
-      _storedImage = File(imageFile.path);
+      _storedImage = file;
     });
   }
 
@@ -26,7 +30,7 @@ class _SingleImageGalleryState extends State<SingleImageGallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Single image gallery'),
+        title: Text('Saving image from URL to gallery'),
       ),
       body: Center(
         child: Column(
@@ -49,7 +53,7 @@ class _SingleImageGalleryState extends State<SingleImageGallery> {
               height: 20,
             ),
             ElevatedButton(
-              onPressed: _takePicture,
+              onPressed: _saveImageFromUrl,
               child: Text('Upload image'),
             ),
           ],

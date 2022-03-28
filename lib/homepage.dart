@@ -3,6 +3,7 @@ import 'package:flutter_images/examples/cropping_image_camera.dart';
 import 'package:flutter_images/examples/image_camera.dart';
 import 'package:flutter_images/examples/image_gallery.dart';
 import 'package:flutter_images/examples/multiple_images.dart';
+import 'package:flutter_images/examples/url_to_device_image_Save.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
@@ -82,6 +83,16 @@ class _PageIndexState extends State<PageIndex> {
                 );
               },
               child: Text('Cropping camera image'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UrlToDeviceImageSave()),
+                );
+              },
+              child: Text('Fetch image from url and save to the device'),
             ),
           ],
         ),
