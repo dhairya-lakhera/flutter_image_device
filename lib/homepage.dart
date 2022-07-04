@@ -3,6 +3,7 @@ import 'package:flutter_images/examples/cropping_image_camera.dart';
 import 'package:flutter_images/examples/image_camera.dart';
 import 'package:flutter_images/examples/image_gallery.dart';
 import 'package:flutter_images/examples/multiple_images.dart';
+import 'package:flutter_images/examples/upload_image_to_server.dart';
 import 'package:flutter_images/examples/url_to_device_image_Save.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -93,6 +94,16 @@ class _PageIndexState extends State<PageIndex> {
                 );
               },
               child: Text('Fetch image from url and save to the device'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UploadImageToServer()),
+                );
+              },
+              child: Text('Upload images to server'),
             ),
           ],
         ),

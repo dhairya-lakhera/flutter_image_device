@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
+import 'package:uuid/uuid.dart';
 import 'dart:io';
 
 class UrlToDeviceImageSave extends StatefulWidget {
@@ -14,12 +15,17 @@ class UrlToDeviceImageSave extends StatefulWidget {
 
 class _UrlToDeviceImageSaveState extends State<UrlToDeviceImageSave> {
   File? _storedImage;
+  var uuid = Uuid();
 
   _saveImageFromUrl() async {
-    var response = await http.get(Uri.parse(
-        'https://tse3.mm.bing.net/th?id=OIP.h4BoQqPX9oXkxX5DQ0ba8wHaE8&pid=Api'));
+    final uuid = Uuid();
+    var response = await http.get(
+      Uri.parse(
+        'https://tse1.mm.bing.net/th?id=OIP.2gS9rh7Q2b8OgO4Cxvrn1AHaEK&pid=Api',
+      ),
+    );
     Directory documentDirectory = await getApplicationDocumentsDirectory();
-    File file = new File('${documentDirectory.path}/imagetest.png');
+    File file = new File('${documentDirectory.path}/${uuid}.jpeg');
     file.writeAsBytesSync(response.bodyBytes);
     setState(() {
       _storedImage = file;
